@@ -1,0 +1,76 @@
+
+var monkey = createSprite(53, 370);
+monkey.setAnimation("monkey");
+monkey.scale = 0.1;
+
+var stone = createSprite(420, 370);
+stone.velocityX = -5;
+stone.setAnimation("Stone");
+stone.scale = 0.1;
+
+
+var ground = createSprite(200, 405, 400, 5);
+
+
+
+var restart = createSprite(200, 200);
+
+
+
+
+
+function draw() {
+  
+  background("white");
+    //add gravity
+  restart.visible = false;
+    
+  if (monkey.isTouching(stone)) {
+    stone.velocityX = 0;
+    monkey.velocityY = 0;
+    monkey.y = 370;
+    monkey.setAnimation("stop");
+    
+    restart.setAnimation("sprite");
+    restart.visible = true;
+
+  }
+  if(keyDown("space")){
+      stopSound("sound://category_jump/classic_jump_4.mp3");
+      monkey.velocityY = -12 ;
+    }
+  if (stone.x === -20) {
+   stone.x = 420;
+    
+  }
+  monkey.velocityY = monkey.velocityY + 0.8;
+  monkey.collide(ground);
+  
+  
+  if (mousePressedOver(restart)) {
+    
+  }
+  stone.setCollider("circle");
+  
+    
+ drawSprites();
+}
+
+function reset() {
+  if(keyDown("space")){
+      stopSound("sound://category_jump/classic_jump_4.mp3");
+      monkey.velocityY = -12 ;
+    }
+    //add gravity
+  monkey.velocityY = monkey.velocityY + 0.8;
+  monkey.collide(ground);
+    
+  if (stone.x === -20) {
+   stone.x = 420;
+
+}
+stone.x = 420;
+  monkey.setAnimation("monkey");
+  stone.velocityX = -5;
+  restart.visible = false;
+}
